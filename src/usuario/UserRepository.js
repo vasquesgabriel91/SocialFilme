@@ -20,7 +20,9 @@ class UserRepository extends Singleton {
   }
 
   async findById(id) {
-    return await UserModel.findByPk(id);
+    return await UserModel.findByPk(id, {
+      attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+    });
   }
 }
 

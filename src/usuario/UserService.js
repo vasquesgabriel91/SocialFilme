@@ -54,10 +54,12 @@ class UserService extends Singleton {
 
     return output;
   }
+
   async getUserById(userId) {
     const user = await UserRepository.findById(userId);
     if (!user) throw new Error("Usuário não encontrado");
     return user;
   }
+
 }
 export default new UserService();
