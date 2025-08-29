@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import sequelize from './database/database.js';
-// import authRoutes from './routes/authRoutes.js';
+import AuthRoutes from './routes/AuthRoutes.js';
 import UserRoutes from './routes/UserRoutes.js';
-import logger from './logger.js';
+import logger from './shared/logger.js';
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rotas
-//app.use('/api/v1', authRoutes);
+app.use('/api/v1', AuthRoutes);
 app.use('/api/v1', UserRoutes);
 
 app.get("/", (req, res) => res.send("API rodando!"));

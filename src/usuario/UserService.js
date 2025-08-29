@@ -42,17 +42,22 @@ class UserService extends Singleton {
 
     const token = AuthService.generateToken({
       id: createUser.id,
-      email: createUser.email,
+      username: createUser.username,
     });
 
     const output = {
-        id: createUser.id,
-        username: createUser.username,
-        email: createUser.email,
-        token,
+      id: createUser.id,
+      username: createUser.username,
+      email: createUser.email,
+      token,
     };
 
     return output;
+  }
+  async getUserById(userId) {
+    const user = await UserRepository.findById(userId);
+    if (!user) throw new Error("Usuário não encontrado");
+    return user;
   }
 }
 export default new UserService();

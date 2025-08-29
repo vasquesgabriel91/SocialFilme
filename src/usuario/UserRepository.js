@@ -1,15 +1,15 @@
 import UserModel from "./UserModel.js";
-import Singleton from "../shared/singleton.js"
+import Singleton from "../shared/singleton.js";
 
 class UserRepository extends Singleton {
   constructor() {
-    super(UserRepository); 
+    super(UserRepository);
   }
 
-async create(userData) {
-  const user = await UserModel.create(userData);
-  return user;
-}
+  async create(userData) {
+    const user = await UserModel.create(userData);
+    return user;
+  }
 
   async findByUserName(username) {
     return await UserModel.findOne({ where: { username } });
@@ -17,6 +17,10 @@ async create(userData) {
 
   async findByEmail(email) {
     return await UserModel.findOne({ where: { email } });
+  }
+
+  async findById(id) {
+    return await UserModel.findByPk(id);
   }
 }
 

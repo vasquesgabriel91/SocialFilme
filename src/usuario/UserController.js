@@ -19,5 +19,28 @@ class UserController {
       return res.status(400).json({ error: error.message });
     }
   }
+
+  async getUser(req, res) {
+    const userId = req.user.id;
+    try {
+      const getUser = await UserUseCase.getUserById(userId);
+      return res.status(200).json(getUser);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  async updateUser(req, res) {
+    try {
+      const userId = req.user.id;
+      const userData = req.body;
+      const updatedUser = await UserUseCase.updateUser(userId, userData);
+      return res
+        .status(200)
+        .json({ message: "Usuário atualizado com sucesso" });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
 }
 export default new UserController();
