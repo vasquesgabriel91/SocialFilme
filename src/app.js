@@ -25,9 +25,5 @@ sequelize.authenticate()
     .then(() => logger.info("Banco conectado com sucesso!"))
     .catch(err => logger.error(`Erro ao conectar ao banco: ${err.message}`));
 
-sequelize.sync({ alter: true })
-    .then(() => logger.info("Tabelas sincronizadas com sucesso."))
-    .catch(err => logger.error(`Erro ao sincronizar tabelas: ${err.message}`)); 
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => logger.info(`Servidor rodando na porta ${PORT}`));
