@@ -2,11 +2,12 @@ import { error } from "console";
 import jwt from "jsonwebtoken";
 import UserRepository from "../usuario/UserRepository.js";
 import bcrypt from "bcryptjs";
+import appConfig from "../config/app.js";
 
 class AuthService {
   constructor() {
-    this.secret = process.env.JWT_SECRET || "default_secret";
-    this.expiresIn = process.env.JWT_EXPIRES_IN || "1h";
+    this.secret = appConfig.jwt.secret;
+    this.expiresIn = appConfig.jwt.expiresIn;
   }
   generateToken(user) {
     const payload = { id: user.id, username: user.username };

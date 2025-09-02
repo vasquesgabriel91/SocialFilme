@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/user", validationUserFields([ "username", "email", "password" ]), UserController.createUser);
 router.get("/user", authMiddleware, UserController.getUser);
-// router.post("/update",authMiddleware, UserController.updateUser);
+router.post("/update",authMiddleware, UserController.updateUser);
 
 export default router;

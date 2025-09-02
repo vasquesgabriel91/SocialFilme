@@ -3,6 +3,7 @@ import Singleton from "../shared/singleton.js";
 import AuthService from "../auth/AuthService.js";
 import validatePassword from "../helpers/passwordValidator.js";
 import bcrypt from "bcryptjs";
+import appConfig from "../config/app.js";
 
 class UserService extends Singleton {
   constructor() {
@@ -58,6 +59,10 @@ class UserService extends Singleton {
   async getUserById(userId) {
     const user = await UserRepository.findById(userId);
     if (!user) throw new Error("Usuário não encontrado");
+    const output = {
+      ...user,
+      link: `${appConfig.baseUrl}/api/v1/update/${user.id}`
+    }
     return user;
   }
 

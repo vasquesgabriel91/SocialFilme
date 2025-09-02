@@ -5,7 +5,7 @@ import sequelize from './database/database.js';
 import AuthRoutes from './routes/AuthRoutes.js';
 import UserRoutes from './routes/UserRoutes.js';
 import logger from './shared/logger.js';
-
+import appConfig from './config/app.js';
 dotenv.config();
 
 const app = express();
@@ -25,5 +25,5 @@ sequelize.authenticate()
     .then(() => logger.info("Banco conectado com sucesso!"))
     .catch(err => logger.error(`Erro ao conectar ao banco: ${err.message}`));
 
-const PORT = process.env.PORT || 3000;
+const PORT = appConfig.port || 3000;
 app.listen(PORT, () => logger.info(`Servidor rodando na porta ${PORT}`));
