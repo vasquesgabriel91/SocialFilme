@@ -60,10 +60,10 @@ class UserService extends Singleton {
     const user = await UserRepository.findById(userId);
     if (!user) throw new Error("Usuário não encontrado");
     const output = {
-      ...user,
+      ...user.toJSON(),
       link: `${appConfig.baseUrl}/api/v1/update/${user.id}`
     }
-    return user;
+    return output;
   }
 
 }
