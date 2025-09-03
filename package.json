@@ -2,12 +2,13 @@
   "name": "socialfilme",
   "version": "1.0.0",
   "description": "Aplicação para gerenciamento de filmes e redes sociais",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "jest"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "migrate": "sequelize-cli db:migrate"
   },
   "author": "Gabriel Vasques",
   "license": "ISC",
