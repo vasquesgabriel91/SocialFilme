@@ -61,10 +61,18 @@ class UserService extends Singleton {
     if (!user) throw new Error("Usuário não encontrado");
     const output = {
       ...user.toJSON(),
-      link: `${appConfig.baseUrl}/api/v1/update/${user.id}`
-    }
+      link: `${appConfig.baseUrl}/api/v1/update/${user.id}`,
+    };
     return output;
   }
 
+  async updateUser(userId, idParam, userData) {
+    if (userId.toString() !== idParam) throw new Error
+    (  "Acesso negado: ID do usuário não corresponde ao ID do token");
+
+    try {
+      
+    } catch (error) {}
+  }
 }
 export default new UserService();

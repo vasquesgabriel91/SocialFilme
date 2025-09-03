@@ -33,8 +33,11 @@ class UserController {
   async updateUser(req, res) {
     try {
       const userId = req.user.id;
+      const idParam = req.params.id;
       const userData = req.body;
-      const updatedUser = await UserUseCase.updateUser(userId, userData);
+
+      const updatedUser = await UserUseCase.updateUser(userId, idParam, userData);
+      
       return res
         .status(200)
         .json({ message: "Usuário atualizado com sucesso" });

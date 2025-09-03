@@ -17,6 +17,14 @@ class UserUseCase {
       throw new Error(`Erro ao buscar usuário: ${error.message}`);
     }
   }
+  async updateUser(userId, idParam, userData) {
+    try {
+      const result = await UserService.updateUser(userId, idParam, userData);
+      return result;
+    } catch (error) {
+      throw new Error(`Erro ao atualizar usuário: ${error.message}`);
+    }
+  }
 }
 
 export default new UserUseCase();
