@@ -67,11 +67,23 @@ class UserService extends Singleton {
   }
 
   async updateUser(userId, idParam, userData) {
-    if (userId.toString() !== idParam) throw new Error
-    (  "Acesso negado: ID do usuário não corresponde ao ID do token");
+    if (userId.toString() !== idParam) 
+      throw new Error( "Acesso negado: ID do usuário não corresponde ao ID do token" );
 
+    const allowedFields = ["username", "email", "bio"];
     try {
-      
+      const filteredData = Object.keys(userData)
+        .filter((key) => allowedFields.includes(key))
+        .reduce((obj, key) => {
+          obj[key] = userData[key];
+          return obj;
+        }, {});
+
+        if (Object.keys(filteredData).length === 0) throw new Error("Nenhum selecionado para atualizar");
+
+      const updatedUser = await UserRepository.update(idParam, filteredData);
+
+      return updatedUser;
     } catch (error) {}
   }
 }

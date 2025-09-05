@@ -24,6 +24,11 @@ class UserRepository extends Singleton {
       attributes: { exclude: ["password", "createdAt", "updatedAt"] },
     });
   }
+
+  async update(id, userData) {
+    await UserModel.update(userData, { where: { id } });
+    return this.findById(id);
+  }
 }
 
 export default new UserRepository();

@@ -35,12 +35,16 @@ class UserController {
       const userId = req.user.id;
       const idParam = req.params.id;
       const userData = req.body;
+      const updatedUser = await UserUseCase.updateUser(
+        userId,
+        idParam,
+        userData
+      );
 
-      const updatedUser = await UserUseCase.updateUser(userId, idParam, userData);
-      
-      return res
-        .status(200)
-        .json({ message: "Usuário atualizado com sucesso" });
+      return res.status(200).json({
+        message: "Usuário atualizado com sucesso",
+        user: updatedUser,
+      });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
