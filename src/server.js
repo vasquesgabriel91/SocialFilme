@@ -4,6 +4,7 @@ import cors from 'cors';
 import sequelize from './database/database.js';
 import AuthRoutes from './routes/AuthRoutes.js';
 import UserRoutes from './routes/UserRoutes.js';
+import CommunityRoutes from './routes/CommunityRoutes.js';
 import logger from './shared/logger.js';
 import appConfig from './config/app.js';
 dotenv.config();
@@ -17,6 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 // Rotas
 app.use('/api/v1', AuthRoutes);
 app.use('/api/v1', UserRoutes);
+app.use('/api/v1', CommunityRoutes);
+
 
 app.get("/", (req, res) => res.send("API rodando!"));
 

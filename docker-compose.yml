@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: sociaMovies-app
+    container_name: socialMovies-app
     restart: unless-stopped
     env_file: .env
     environment:
