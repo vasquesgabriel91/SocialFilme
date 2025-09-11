@@ -1,5 +1,5 @@
 import e from "express";
-import CommunitiesController from "./communitiesUseCases.js";
+import CommunitiesUseCase from "./communitiesUseCase.js";
 
 class CommunitiesController {
   async createCommunity(req, res) {
@@ -7,7 +7,7 @@ class CommunitiesController {
     const dataFields = req.body;
 
     try {
-      const community = await CommunitiesController.execute(dataFields, userId);
+      const community = await CommunitiesUseCase.execute(dataFields, userId);
       return res.status(201).json(community);
     } catch (error) {
       return res.status(400).json({ error: error.message });
