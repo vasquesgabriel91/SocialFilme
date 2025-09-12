@@ -10,7 +10,7 @@ Follower.init(
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
-    followerId: {
+    followersId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: { model: "users", key: "id" },
@@ -29,6 +29,12 @@ Follower.init(
     sequelize,
     modelName: "Follower",
     tableName: "followers",
+    indexes: [
+      {
+        unique: true,
+        fields: ["followersId", "followingId"],
+      }
+    ],
   }
 );
 export default Follower;

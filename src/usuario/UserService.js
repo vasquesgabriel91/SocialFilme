@@ -67,8 +67,10 @@ class UserService extends Singleton {
   }
 
   async updateUser(userId, idParam, userData) {
-    if (userId.toString() !== idParam) 
-      throw new Error( "Acesso negado: ID do usuário não corresponde ao ID do token" );
+    if (userId.toString() !== idParam)
+      throw new Error(
+        "Acesso negado: ID do usuário não corresponde ao ID do token"
+      );
 
     const allowedFields = ["username", "email", "bio"];
     try {
@@ -79,23 +81,37 @@ class UserService extends Singleton {
           return obj;
         }, {});
 
-        if (Object.keys(filteredData).length === 0) throw new Error("Nenhum selecionado para atualizar");
+      if (Object.keys(filteredData).length === 0)
+        throw new Error("Nenhum selecionado para atualizar");
 
       const updatedUser = await UserRepository.update(idParam, filteredData);
 
       return updatedUser;
     } catch (error) {}
   }
-  async followUser( userId, usernameToFollow ) {
-    const userToFollow = await UserRepository.getIdByUserName(usernameToFollow);
-   
-    if (!userToFollow) throw new Error("Usuário a seguir não encontrado");
-    if (userToFollow === userId) throw new Error("Você não pode seguir você mesmo");
-
-    const userToFollowId = userToFollow.id;
+  async followUser(userId, usernameToFollow) {
     try {
+      const userToFollow = await UserRepository.getIdByUserName(
+        usernameToFollow
+      );
+      if (!userToFollow) throw new Error("Usuário a seguir não encontrado");
+      if (userToFollow === userId)
+        throw new Error("Você não pode seguir você mesmo");
+
+      const userToFollowId = userToFollow.id;
+
+      const isFollowing = await UserRepository.isFollowing(userId, userToFollowId);
+
+      if (isFollowing) {
+        const unfollow = await UserRepository.unfollowUser(
+          userId,
+          userToFollowId
+        );
+        return { message: `Você deixou de seguir ${usernameToFollow}` };
+      }
+
       const followingUser = await UserRepository.followUser(userId, userToFollowId);
-      return followingUser;
+      return { message: `Você está seguindo ${usernameToFollow}` , followingUser };
     } catch (error) {
       throw new Error(`Erro ao seguir usuário: ${error.message}`);
     }

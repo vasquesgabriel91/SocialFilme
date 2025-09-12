@@ -40,12 +40,31 @@ class UserRepository extends Singleton {
   }
 
   async followUser(userId, userToFollowId) {
-    console.log(userId, userToFollowId);
     const followingUser = await FollowersModel.create({
-      followerId: userId,
+      followersId: userId,
       followingId: userToFollowId,
     });
     return followingUser;
+  }
+
+  async isFollowing(userId, userToFollowId) {
+    const exists = await FollowersModel.findOne({
+      where: {
+        followersId: userId,
+        followingId: userToFollowId,
+      },
+    });
+    return exists;
+  }
+
+  async unfollowUser(userId, userToFollowId) {
+    const unFollow = await FollowersModel.destroy({
+      where: {
+        followersId: userId,
+        followingId: userToFollowId,
+      },
+    });
+    return unFollow;
   }
 }
 
