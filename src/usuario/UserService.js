@@ -101,26 +101,32 @@ class UserService extends Singleton {
 
       const userToFollowId = userToFollow.id;
 
-      const isFollowing = await UserRepository.isFollowing(userId, userToFollowId);
+      const isFollowing = await UserRepository.isFollowing(
+        userId,
+        userToFollowId
+      );
 
       if (isFollowing) {
-        const unfollow = await UserRepository.unfollowUser(
-          userId,
-          userToFollowId
-        );
+        await UserRepository.unfollowUser(userId, userToFollowId);
         return { message: `Você deixou de seguir ${usernameToFollow}` };
       }
 
-      const followingUser = await UserRepository.followUser(userId, userToFollowId);
-      
-      await redisPublisher.publishNotification("user:notifications",{
+      const followingUser = await UserRepository.followUser(
+        userId,
+        userToFollowId
+      );
+
+      await redisPublisher.publishNotification("user:notifications", {
         type: "new_follower",
         userId,
         userToFollowId,
         timestamp: Date.now(),
-      })
+      });
 
-      return { message: `Você está seguindo ${usernameToFollow}` , followingUser };
+      return {
+        message: `Você está seguindo ${usernameToFollow}`,
+        followingUser,
+      };
     } catch (error) {
       throw new Error(`Erro ao seguir usuário: ${error.message}`);
     }
