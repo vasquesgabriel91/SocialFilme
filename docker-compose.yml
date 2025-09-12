@@ -34,7 +34,15 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
-      
+  redis:
+    image: redis:7-alpine
+    container_name: socialMovies-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

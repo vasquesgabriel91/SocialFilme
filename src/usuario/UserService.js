@@ -4,6 +4,7 @@ import AuthService from "../auth/AuthService.js";
 import validatePassword from "../helpers/passwordValidator.js";
 import bcrypt from "bcryptjs";
 import appConfig from "../config/app.js";
+import redisPublisher from "../infra/redisPublisher.js";
 
 class UserService extends Singleton {
   constructor() {
@@ -111,6 +112,14 @@ class UserService extends Singleton {
       }
 
       const followingUser = await UserRepository.followUser(userId, userToFollowId);
+      
+      await redisPublisher.publishNotification("user:notifications",{
+        type: "new_follower",
+        userId,
+        userToFollowId,
+        timestamp: Date.now(),
+      })
+
       return { message: `Você está seguindo ${usernameToFollow}` , followingUser };
     } catch (error) {
       throw new Error(`Erro ao seguir usuário: ${error.message}`);
