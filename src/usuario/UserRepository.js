@@ -1,6 +1,7 @@
 import UserModel from "./UserModel.js";
 import Singleton from "../shared/singleton.js";
-impo
+import FollowersModel from "../followers/FollowersModel.js";
+
 class UserRepository extends Singleton {
   constructor() {
     super(UserRepository);
@@ -39,7 +40,8 @@ class UserRepository extends Singleton {
   }
 
   async followUser(userId, userToFollowId) {
-    const followingUser = await UserModel.create({
+    console.log(userId, userToFollowId);
+    const followingUser = await FollowersModel.create({
       followerId: userId,
       followingId: userToFollowId,
     });
