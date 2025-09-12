@@ -1,6 +1,6 @@
 import UserModel from "./UserModel.js";
 import Singleton from "../shared/singleton.js";
-
+impo
 class UserRepository extends Singleton {
   constructor() {
     super(UserRepository);
@@ -30,12 +30,20 @@ class UserRepository extends Singleton {
     return this.findById(id);
   }
 
-  async getIdByUserName(usernameToFollow){
-    const id = await UserModel.findOne(
-      {where: {username: usernameToFollow}},
-      {attributes: ['id']}
-    );
+  async getIdByUserName(usernameToFollow) {
+    const id = await UserModel.findOne({
+      where: { username: usernameToFollow },
+      attributes: ["id"],
+    });
     return id;
+  }
+
+  async followUser(userId, userToFollowId) {
+    const followingUser = await UserModel.create({
+      followerId: userId,
+      followingId: userToFollowId,
+    });
+    return followingUser;
   }
 }
 

@@ -4,7 +4,6 @@ import AuthService from "../auth/AuthService.js";
 import validatePassword from "../helpers/passwordValidator.js";
 import bcrypt from "bcryptjs";
 import appConfig from "../config/app.js";
-import { use } from "react";
 
 class UserService extends Singleton {
   constructor() {
@@ -88,14 +87,17 @@ class UserService extends Singleton {
     } catch (error) {}
   }
   async followUser( userId, usernameToFollow ) {
-    const userToFollowId = await UserRepository.getIdByUserName(usernameToFollow);
-    if (!userToFollowId) throw new Error("Usuário a seguir não encontrado");
-    if (userToFollowId === userId) throw new Error("Você não pode seguir você mesmo");
+    const userToFollow = await UserRepository.getIdByUserName(usernameToFollow);
+   
+    if (!userToFollow) throw new Error("Usuário a seguir não encontrado");
+    if (userToFollow === userId) throw new Error("Você não pode seguir você mesmo");
 
+    const userToFollowId = userToFollow.id;
     try {
-      
+      const followingUser = await UserRepository.followUser(userId, userToFollowId);
+      return followingUser;
     } catch (error) {
-      
+      throw new Error(`Erro ao seguir usuário: ${error.message}`);
     }
   }
 }

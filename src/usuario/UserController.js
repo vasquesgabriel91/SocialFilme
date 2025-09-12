@@ -55,9 +55,13 @@ class UserController {
     const usernameToFollow = req.params.username;
     
     try {
-      
+      const followResult = await UserUseCase.followUser(userId, usernameToFollow);
+      return res.status(200).json({
+        message: `Você está seguindo ${usernameToFollow}`,
+        follow: followResult,
+      });
     } catch (error) {
-      
+      return res.status(400).json({ error: error.message });
     }
   }
 }
