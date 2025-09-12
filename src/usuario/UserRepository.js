@@ -29,6 +29,14 @@ class UserRepository extends Singleton {
     await UserModel.update(userData, { where: { id } });
     return this.findById(id);
   }
+
+  async getIdByUserName(usernameToFollow){
+    const id = await UserModel.findOne(
+      {where: {username: usernameToFollow}},
+      {attributes: ['id']}
+    );
+    return id;
+  }
 }
 
 export default new UserRepository();

@@ -49,5 +49,16 @@ class UserController {
       return res.status(400).json({ error: error.message });
     }
   }
+
+  async followUser(req, res) {
+    const userId = req.user.id;
+    const usernameToFollow = req.params.username;
+    
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
 }
 export default new UserController();

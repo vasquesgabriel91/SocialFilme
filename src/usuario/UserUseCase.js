@@ -25,6 +25,14 @@ class UserUseCase {
       throw new Error(`Erro ao atualizar usuário: ${error.message}`);
     }
   }
+  async followUser(userId, usernameToFollow) {
+    try {
+      const result = await UserService.followUser(userId, usernameToFollow);
+      return result;
+    } catch (error) {
+      throw new Error(`Erro ao seguir usuário: ${error.message}`);
+    }
+  }
 }
 
 export default new UserUseCase();
