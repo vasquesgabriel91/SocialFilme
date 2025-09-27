@@ -37,6 +37,6 @@ const server = http.createServer(app);
 initializeSocket(server);
 
 const PORT = appConfig.port || 3000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   logger.info(`Servidor rodando na porta ${PORT} 🚀`);
 });

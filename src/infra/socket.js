@@ -17,6 +17,7 @@ export default function initializeSocket(server) {
 
     socket.on("register", (userId) => {
       socket.userId = userId;
+
       if (!onlineUsers.has(userId)) onlineUsers.set(userId, []);
       onlineUsers.get(userId).push(socket.id);
       logger.info(`Usuário registrado no socket: ${userId}`);
@@ -34,5 +35,5 @@ export default function initializeSocket(server) {
     });
   });
 
-  return io;
+  return {io, onlineUsers};
 }

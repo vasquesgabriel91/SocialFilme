@@ -57,12 +57,24 @@ class UserService extends Singleton {
     return output;
   }
 
-  async getUserById(userId) {
+  async getUserById(userId, idParam) {
+        //outras info aqui (Lista de seguidores, seguindo, posts, sua lista de filme, filmes assistidos, comunidades que vc particapa que vc crio, etc)
+
+    if (userId !== idParam){
+      //pegar o username por idParam
+      //aqui vai todas as info menos email e senha 
+      const output ={
+        linkFollowUser: `${appConfig.baseUrl}/api/v1/${userName}`,
+      }
+      return output;
+    }
+    //aqui vai as info mais email e etc, metodo separado para buscar info sensivel
     const user = await UserRepository.findById(userId);
     if (!user) throw new Error("Usuário não encontrado");
     const output = {
       ...user.toJSON(),
-      link: `${appConfig.baseUrl}/api/v1/update/${user.id}`,
+      linkUpdate: `${appConfig.baseUrl}/api/v1/update/${user.id}`,
+      linkDestroy: `${appConfig.baseUrl}/api/v1/destroy/${user.id}`,
     };
     return output;
   }

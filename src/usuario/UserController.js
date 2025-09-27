@@ -20,11 +20,12 @@ class UserController {
     }
   }
 
-  async getUser(req, res) {
+  async getUserById(req, res) {
+    const idParam = req.params.id;
     const userId = req.user.id;
     try {
-      const getUser = await UserUseCase.getUserById(userId);
-      return res.status(200).json(getUser);
+      const getUserById = await UserUseCase.getUserById(userId, idParam);
+      return res.status(200).json(getUserById);
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

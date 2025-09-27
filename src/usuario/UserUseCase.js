@@ -9,9 +9,9 @@ class UserUseCase {
       throw new Error(`Erro ao criar usuário: ${error.message}`);
     }
   }
-  async getUserById(userId) {
+  async getUserById(userId, idParam) {
     try {
-      const result = await UserService.getUserById(userId);
+      const result = await UserService.getUserById(userId, idParam);
       return result;
     } catch (error) {
       throw new Error(`Erro ao buscar usuário: ${error.message}`);
