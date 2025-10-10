@@ -58,7 +58,7 @@ class UserService extends Singleton {
   }
 
   async getUserById(userId, idParam) {
-        //outras info aqui (Lista de seguidores, seguindo, posts, sua lista de filme, filmes assistidos, comunidades que vc particapa que vc crio, etc)
+        //outras info aqui (Lista de seguidores, seguindo, posts, sua lista de filme, filmes assistidos, comunidades que vc particapa que vc criou, etc)
 
     if (userId !== idParam){
       //pegar o username por idParam

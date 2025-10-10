@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import http from 'http'; // necessário
+import http from 'http'; 
 import sequelize from './database/database.js';
 import AuthRoutes from './routes/AuthRoutes.js';
 import UserRoutes from './routes/UserRoutes.js';
