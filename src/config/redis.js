@@ -10,10 +10,13 @@ redis.on("connect", () => {
   console.log("Conectado ao Redis");
   logger.info("Conectado ao Redis");
 });
-
+redis.on("error", (err) => {
+  console.error("[Redis] Erro na conexão", err);
+  logger.error(`[Redis] Erro na conexão: ${err.message}`);
+});
 redis.on("close", () => {
   console.log("Conexão fechada");
-  logger.warn('[Redis] Conexão fechada');
+  logger.warn("[Redis] Conexão fechada");
 });
 
 export default redis;

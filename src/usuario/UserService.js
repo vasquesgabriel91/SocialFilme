@@ -128,12 +128,12 @@ class UserService extends Singleton {
         userToFollowId
       );
 
-      await redisPublisher.publishNotification("user:notifications", {
-        type: "new_follower",
-        userId,
-        userToFollowId,
-        timestamp: Date.now(),
-      });
+      // await redisPublisher.publishNotification("user:notifications", {
+      //   type: "new_follower",
+      //   userId,
+      //   userToFollowId,
+      //   timestamp: Date.now(),
+      // });
 
       return {
         message: `Você está seguindo ${usernameToFollow}`,
