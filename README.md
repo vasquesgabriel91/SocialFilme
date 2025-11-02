@@ -16,6 +16,21 @@ Comentários em Tempo Real: Interaja com outros usuários através de comentári
 
 Listas Personalizadas: Monte coleções como “Favoritos de 2023” ou “Filmes para Ver com a Família”.
 
+# Ambiente Dockerizado
+
+O projeto é totalmente containerizado com Docker, garantindo portabilidade e facilidade na configuração do ambiente.
+Com um único comando, todo o ecossistema é iniciado — incluindo Node.js, PostgreSQL, Redis e Next.js.
+
+Principais containers:
+
+app: Aplicação Node.js (API)
+
+web: Interface do usuário em Next.js
+
+db: Banco de dados PostgreSQL
+
+redis: Cache e gerenciamento de sessão
+
 # Arquitetura e Organização
 
 O projeto segue uma arquitetura limpa e orientada a casos de uso, com camadas bem definidas:
@@ -42,6 +57,8 @@ Node.js v20+
 
 Express.js
 
+Next.js (Frontend)
+
 PostgreSQL v15+
 
 Sequelize ORM
@@ -51,3 +68,5 @@ JWT (JSON Web Token)
 Redis
 
 WebSocket
+
+Docker e Docker Compose
