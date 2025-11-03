@@ -24,10 +24,8 @@ class AuthService {
     });
   }
 
-  saveRefreshToken(userId, refreshToken) {
-    return await.redisClient.set(`refreshToken:${userId}`, refreshToken, {
-      EX: 7 * 24 * 60 * 60,
-    });
+  async saveRefreshToken(userId, refreshToken) {
+    return await redisClient.set( `refreshToken:${userId}`, refreshToken, "EX", 7 * 24 * 60 * 60 );
   }
 
   verifyToken(token) {
@@ -47,6 +45,7 @@ class AuthService {
     if (!isPasswordValid) throw new Error("Senha inválida");
 
     const token = this.generateToken({ id: user.id, username: user.username });
+    
     const refreshToken = this.refreshSecretIn({
       id: user.id,
       username: user.username,
